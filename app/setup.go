@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/bachiitter/api/app/router"
-	"github.com/bachiitter/api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -15,12 +14,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func New() error {
-	// load env
-	err := utils.LoadENV()
-	if err != nil {
-		return err
-	}
+func New() {
 
 	// create app
 	app := fiber.New()
@@ -72,5 +66,4 @@ func New() error {
 
 	app.Listen(port)
 
-	return nil
 }
