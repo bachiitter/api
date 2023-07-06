@@ -53,12 +53,24 @@ func New() error {
 		LimiterMiddleware: limiter.SlidingWindow{},
 	}))
 
+	// Error Handler
+	app.Use(func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusNotFound).SendString("Bruh! (>__<)")
+	})
+
 	// setup routes
 	router.SetupRoutes(app)
 
 	// get the port and start
 	port := os.Getenv("PORT")
-	app.Listen(":" + port)
+
+	if port == "" {
+		port = ":3000"
+	} else {
+		port = ":" + port
+	}
+
+	app.Listen(port)
 
 	return nil
 }
