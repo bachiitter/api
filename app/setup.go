@@ -37,8 +37,19 @@ func New() error {
 		Level: compress.LevelBestSpeed, // 1
 	}))
 
+	var origins string
+
+	goEnv := os.Getenv("GO_ENV")
+
+	if goEnv == "" || goEnv == "development" {
+		origins = "*"
+	} else {
+
+		origins = "https://bachitter.dev, https://portfolio-e3z.pages.dev, https://v3.portfolio-e3z.pages.dev"
+	}
+
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "https://bachitter.dev, https://portfolio-e3z.pages.dev, https://v3.portfolio-e3z.pages.dev",
+		AllowOrigins: origins,
 		AllowHeaders: "Content-Type",
 		AllowMethods: "GET, POST",
 		MaxAge:       600,
