@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/bachiitter/api/app/router"
+	"github.com/bachiitter/api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -14,7 +15,13 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
-func New() {
+func New() error {
+
+	// load env
+	err := utils.LoadENV()
+	if err != nil {
+		return err
+	}
 
 	// create app
 	app := fiber.New()
@@ -47,13 +54,13 @@ func New() {
 		LimiterMiddleware: limiter.SlidingWindow{},
 	}))
 
+	// setup routes
+	router.SetupRoutes(app)
+
 	// Error Handler
 	app.Use(func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).SendString("Bruh! (>__<)")
 	})
-
-	// setup routes
-	router.SetupRoutes(app)
 
 	// get the port and start
 	port := os.Getenv("PORT")
@@ -66,4 +73,5 @@ func New() {
 
 	app.Listen(port)
 
+	return nil
 }

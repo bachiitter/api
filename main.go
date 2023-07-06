@@ -2,18 +2,14 @@ package main
 
 import (
 	"github.com/bachiitter/api/app"
-	"github.com/bachiitter/api/utils"
 )
 
 func main() {
 
-	// load env
-	err := utils.LoadENV()
+	// init server
+	err := app.New()
 	if err != nil {
 		panic(err)
 	}
-
-	// init server
-	app.New()
 
 }
