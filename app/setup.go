@@ -45,7 +45,7 @@ func New() error {
 		origins = "*"
 	} else {
 
-		origins = "https://bachitter.dev, https://portfolio-e3z.pages.dev, https://minimal.portfolio-e3z.pages.dev https://v3.portfolio-e3z.pages.dev, http://localhost:3000"
+		origins = "https://bachitter.dev, https://portfolio-e3z.pages.dev, https://minimal.portfolio-e3z.pages.dev, https://v3.portfolio-e3z.pages.dev, http://localhost:3000"
 	}
 
 	app.Use(cors.New(cors.Config{
